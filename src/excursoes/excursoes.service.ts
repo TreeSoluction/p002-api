@@ -10,12 +10,26 @@ export class ExcursoesService extends GenericPrismaService<CreateExcursoesDto, U
     super(prisma, 'excursoes');
   }
 
-  async findAllWithUf(size: number, page: number, uf: string): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
+  async findAllWithUf(
+    size: number,
+    page: number,
+    uf?: string
+  ): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
     const realPage = Math.max(page - 1, 0);
     const realSize = Math.max(size, 1);
-    const data = await this.db.excursoes.findMany({ skip: realPage * realSize, take: realSize, where: { estado: uf } });
-    const totalCount = await this.db.excursoes.count();
-    const totalPages = Math.max(1, Math.ceil(totalCount / size));
-    return { data, page, size: realSize, totalPages: totalPages };
+
+    const where = uf ? { estado: uf } : {};
+
+    const data = await this.db.excursoes.findMany({
+      skip: realPage * realSize,
+      take: realSize,
+      where,
+    });
+
+    const totalCount = await this.db.excursoes.count({ where });
+
+    const totalPages = Math.max(1, Math.ceil(totalCount / realSize));
+
+    return { data, page, size: realSize, totalPages };
   }
 }

@@ -13,7 +13,7 @@ export class ExcursoesController {
   }
 
   @Get()
-  findAll(@Query("size", ParseIntPipe) size: number, @Query('page', ParseIntPipe) page: number, @Query('uf') uf: string) {
+  findAll(@Query("size", ParseIntPipe) size: number, @Query('page', ParseIntPipe) page: number, @Query('uf') uf?: string) {
     return this.excursoesService.findAllWithUf(size, page, uf);
   }
 
