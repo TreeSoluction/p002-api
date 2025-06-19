@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { ExcursoesService } from './excursoes.service';
 import { UpdateExcursoeDto } from './dto/update-excursoe.dto';
 import { CreateExcursoesDto } from './dto/create-excursoe.dto';
@@ -22,7 +22,7 @@ export class ExcursoesController {
     return this.excursoesService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateExcursoeDto: UpdateExcursoeDto) {
     return this.excursoesService.update(+id, updateExcursoeDto);
   }
