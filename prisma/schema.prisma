@@ -25,3 +25,11 @@ model excursoes {
   rota          String[]
   phone_numbers String[]
 }
+
+model hospedagens {
+  id            Int      @id @default(autoincrement())
+  nome          String
+  local         String
+  imagem        String?
+  phone_numbers String[]
+}
