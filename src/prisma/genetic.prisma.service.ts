@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { skip } from 'node:test';
+import { take } from 'rxjs';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class GenericPrismaService<TCreateDto, TUpdateDto> {
   constructor(
-    private db: PrismaService,
-    private modelName: string
+    protected db: PrismaService,
+    protected modelName: string
   ) { }
 
   private get model() {
@@ -16,8 +18,13 @@ export class GenericPrismaService<TCreateDto, TUpdateDto> {
     return await this.model.create({ data: { ...payload } });
   }
 
-  async findAll(): Promise<any[]> {
-    return await this.model.findMany();
+  async findAll(size: number, page: number): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
+    const realPage = Math.max(page - 1, 0);
+    const realSize = Math.max(size, 1);
+    const data = await this.model.findMany({ skip: realPage * realSize, take: realSize });
+    const totalCount = await this.model.count();
+    const totalPages = Math.max(1, Math.ceil(totalCount / size));
+    return { data, page, size: realSize, totalPages: totalPages };
   }
 
   async findOne(id: number): Promise<any> {

@@ -9,6 +9,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 
 @Controller('services')
@@ -21,8 +22,8 @@ export class ServicesController {
   }
 
   @Get()
-  findAll() {
-    return this.servicesService.findAll();
+  findAll(@Query("size") size: number, @Query('page') page: number) {
+    return this.servicesService.findAll(size, page);
   }
 
   @Get(':id')

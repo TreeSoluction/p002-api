@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, Query, ParseIntPipe } from '@nestjs/common';
 import { ExcursoesService } from './excursoes.service';
 import { UpdateExcursoeDto } from './dto/update-excursoe.dto';
 import { CreateExcursoesDto } from './dto/create-excursoe.dto';
@@ -13,8 +13,8 @@ export class ExcursoesController {
   }
 
   @Get()
-  findAll() {
-    return this.excursoesService.findAll();
+  findAll(@Query("size", ParseIntPipe) size: number, @Query('page', ParseIntPipe) page: number, @Query('uf') uf: string) {
+    return this.excursoesService.findAllWithUf(size, page, uf);
   }
 
   @Get(':id')
