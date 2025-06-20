@@ -102,3 +102,9 @@ model quiosques {
   local         String
   phone_numbers String[]
 }
+
+model calendario {
+  id     Int      @id @default(autoincrement())
+  imagem String?
+  data   DateTime
+}
