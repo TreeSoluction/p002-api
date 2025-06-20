@@ -26,6 +26,24 @@ model excursoes {
   phone_numbers String[]
 }
 
+model transportadoras {
+  id            Int      @id @default(autoincrement())
+  nome          String
+  local         String
+  cidade        String
+  imagem        String?
+  phone_numbers String[]
+}
+
+model freteiros {
+  id            Int      @id @default(autoincrement())
+  nome          String
+  local         String
+  cidade        String
+  imagem        String?
+  phone_numbers String[]
+}
+
 model hospedagens {
   id            Int      @id @default(autoincrement())
   nome          String
@@ -38,6 +56,7 @@ model hospedagens {
 model restaurantes {
   id            Int      @id @default(autoincrement())
   nome          String
+  imagem        String?
   cidade        String
   local         String
   phone_numbers String[]
@@ -48,6 +67,7 @@ model estacionamentos {
   nome          String
   cidade        String
   local         String
+  imagem        String?
   phone_numbers String[]
 }
 
@@ -55,14 +75,30 @@ model malharias {
   id            Int      @id @default(autoincrement())
   nome          String
   cidade        String
+  imagem        String?
   local         String
   phone_numbers String[]
+}
+
+model cidades {
+  id     Int     @id @default(autoincrement())
+  nome   String
+  imagem String?
+}
+
+model lojas {
+  id        Int     @id @default(autoincrement())
+  nome      String
+  cidade    String
+  imagem    String?
+  categoria String
 }
 
 model quiosques {
   id            Int      @id @default(autoincrement())
   nome          String
   cidade        String
+  imagem        String?
   local         String
   phone_numbers String[]
 }

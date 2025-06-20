@@ -6,9 +6,13 @@ import { RestaurantesModule } from './restaurantes/restaurantes.module';
 import { QuiosquesModule } from './quiosques/quiosques.module';
 import { EstacionamentosModule } from './estacionamentos/estacionamentos.module';
 import { MalhariasModule } from './malharias/malharias.module';
+import { TransportadorasModule } from './transportadoras/transportadoras.module';
+import { FreteirosModule } from './freteiros/freteiros.module';
+import { LojasModule } from './lojas/lojas.module';
+import { CidadesModule } from './cidades/cidades.module';
 
 @Module({
-  imports: [ServicesModule, ExcursoesModule, HospedagensModule, RestaurantesModule, QuiosquesModule, EstacionamentosModule, MalhariasModule],
+  imports: [ServicesModule, ExcursoesModule, HospedagensModule, RestaurantesModule, QuiosquesModule, EstacionamentosModule, MalhariasModule, TransportadorasModule, FreteirosModule, LojasModule, CidadesModule],
   controllers: [],
   exports: [],
   providers: [],
