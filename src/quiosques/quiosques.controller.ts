@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query, Put } from '@nestjs/common';
 import { QuiosquesService } from './quiosques.service';
 import { CreateQuiosqueDto } from './dto/create-quiosque.dto';
 import { UpdateQuiosqueDto } from './dto/update-quiosque.dto';
@@ -22,7 +22,7 @@ export class QuiosquesController {
     return this.quiosquesService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateQuiosqueDto: UpdateQuiosqueDto) {
     return this.quiosquesService.update(+id, updateQuiosqueDto);
   }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseIntPipe, Put } from '@nestjs/common';
 import { MalhariasService } from './malharias.service';
 import { CreateMalhariaDto } from './dto/create-malharia.dto';
 import { UpdateMalhariaDto } from './dto/update-malharia.dto';
@@ -22,7 +22,7 @@ export class MalhariasController {
     return this.malhariasService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateMalhariaDto: UpdateMalhariaDto) {
     return this.malhariasService.update(+id, updateMalhariaDto);
   }

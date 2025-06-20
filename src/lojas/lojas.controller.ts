@@ -1,11 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { LojasService } from './lojas.service';
 import { CreateLojaDto } from './dto/create-loja.dto';
 import { UpdateLojaDto } from './dto/update-loja.dto';
 
 @Controller('lojas')
 export class LojasController {
-  constructor(private readonly lojasService: LojasService) {}
+  constructor(private readonly lojasService: LojasService) { }
 
   @Post()
   create(@Body() createLojaDto: CreateLojaDto) {
@@ -22,7 +22,7 @@ export class LojasController {
     return this.lojasService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateLojaDto: UpdateLojaDto) {
     return this.lojasService.update(+id, updateLojaDto);
   }
