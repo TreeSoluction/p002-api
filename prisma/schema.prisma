@@ -30,6 +30,39 @@ model hospedagens {
   id            Int      @id @default(autoincrement())
   nome          String
   local         String
+  cidade        String
   imagem        String?
+  phone_numbers String[]
+}
+
+model restaurantes {
+  id            Int      @id @default(autoincrement())
+  nome          String
+  cidade        String
+  local         String
+  phone_numbers String[]
+}
+
+model estacionamentos {
+  id            Int      @id @default(autoincrement())
+  nome          String
+  cidade        String
+  local         String
+  phone_numbers String[]
+}
+
+model malharias {
+  id            Int      @id @default(autoincrement())
+  nome          String
+  cidade        String
+  local         String
+  phone_numbers String[]
+}
+
+model quiosques {
+  id            Int      @id @default(autoincrement())
+  nome          String
+  cidade        String
+  local         String
   phone_numbers String[]
 }
