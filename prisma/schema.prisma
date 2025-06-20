@@ -87,10 +87,11 @@ model cidades {
 }
 
 model lojas {
-  id        Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   nome      String
   cidade    String
   imagem    String?
+  produtos  String[]
   categoria String
 }
 
