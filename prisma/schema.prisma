@@ -109,3 +109,9 @@ model calendario {
   imagem String?
   data   DateTime
 }
+
+model usuarios {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+  senha String
+}

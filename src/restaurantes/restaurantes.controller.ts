@@ -1,12 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Query, ParseIntPipe, Put, UseGuards } from '@nestjs/common';
 import { RestaurantesService } from './restaurantes.service';
 import { CreateRestauranteDto } from './dto/create-restaurante.dto';
 import { UpdateRestauranteDto } from './dto/update-restaurante.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('restaurantes')
 export class RestaurantesController {
   constructor(private readonly restaurantesService: RestaurantesService) { }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createRestauranteDto: CreateRestauranteDto) {
     return this.restaurantesService.create(createRestauranteDto);
@@ -22,11 +24,13 @@ export class RestaurantesController {
     return this.restaurantesService.findOne(+id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   update(@Param('id') id: string, @Body() updateRestauranteDto: UpdateRestauranteDto) {
     return this.restaurantesService.update(+id, updateRestauranteDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.restaurantesService.remove(+id);

@@ -11,9 +11,10 @@ import { FreteirosModule } from './freteiros/freteiros.module';
 import { LojasModule } from './lojas/lojas.module';
 import { CidadesModule } from './cidades/cidades.module';
 import { CalendarioModule } from './calendario/calendario.module';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [ServicesModule, ExcursoesModule, HospedagensModule, RestaurantesModule, QuiosquesModule, EstacionamentosModule, MalhariasModule, TransportadorasModule, FreteirosModule, LojasModule, CidadesModule, CalendarioModule],
+  imports: [ServicesModule, ExcursoesModule, HospedagensModule, RestaurantesModule, QuiosquesModule, EstacionamentosModule, MalhariasModule, TransportadorasModule, FreteirosModule, LojasModule, CidadesModule, CalendarioModule, UserModule],
   controllers: [],
   exports: [],
   providers: [],

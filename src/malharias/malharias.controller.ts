@@ -1,12 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseIntPipe, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Query, ParseIntPipe, Put, UseGuards } from '@nestjs/common';
 import { MalhariasService } from './malharias.service';
 import { CreateMalhariaDto } from './dto/create-malharia.dto';
 import { UpdateMalhariaDto } from './dto/update-malharia.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('malharias')
 export class MalhariasController {
   constructor(private readonly malhariasService: MalhariasService) { }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createMalhariaDto: CreateMalhariaDto) {
     return this.malhariasService.create(createMalhariaDto);
@@ -22,11 +24,13 @@ export class MalhariasController {
     return this.malhariasService.findOne(+id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   update(@Param('id') id: string, @Body() updateMalhariaDto: UpdateMalhariaDto) {
     return this.malhariasService.update(+id, updateMalhariaDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.malhariasService.remove(+id);
