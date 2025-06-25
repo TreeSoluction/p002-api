@@ -31,6 +31,7 @@ model transportadoras {
   nome          String
   local         String
   cidade        String
+  email         String?
   imagem        String?
   phone_numbers String[]
 }
