@@ -15,8 +15,9 @@ export class TransportadorasController {
   }
 
   @Get()
-  findAll(@Query("size", ParseIntPipe) size: number, @Query('page', ParseIntPipe) page: number) {
-    return this.transportadorasService.findAll(size, page);
+  findAll(@Query("size", ParseIntPipe) size: number, @Query('page', ParseIntPipe) page: number, @Query('cidade') cidade: string) {
+
+    return this.transportadorasService.findAll(size, page, cidade);
   }
 
   @Get(':id')

@@ -15,8 +15,9 @@ export class CalendarioController {
   }
 
   @Get()
-  findAll(@Query("size", ParseIntPipe) size: number, @Query('page', ParseIntPipe) page: number) {
-    return this.calendarioService.findAll(size, page);
+  findAll(@Query("size", ParseIntPipe) size: number, @Query('page', ParseIntPipe) page: number, @Query('cidade') cidade: string) {
+
+    return this.calendarioService.findAll(size, page, cidade);
   }
 
   @Get(':id')
@@ -29,7 +30,7 @@ export class CalendarioController {
   update(@Param('id') id: string, @Body() updateCalendarioDto: UpdateCalendarioDto) {
     return this.calendarioService.update(+id, updateCalendarioDto);
   }
-  
+
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {

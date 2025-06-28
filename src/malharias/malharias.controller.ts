@@ -15,8 +15,9 @@ export class MalhariasController {
   }
 
   @Get()
-  findAll(@Query("size", ParseIntPipe) size: number, @Query('page', ParseIntPipe) page: number) {
-    return this.malhariasService.findAll(size, page);
+  findAll(@Query("size", ParseIntPipe) size: number, @Query('page', ParseIntPipe) page: number, @Query('cidade') cidade: string) {
+
+    return this.malhariasService.findAll(size, page, cidade);
   }
 
   @Get(':id')

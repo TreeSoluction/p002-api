@@ -18,10 +18,10 @@ export class GenericPrismaService<TCreateDto, TUpdateDto> {
     return await this.model.create({ data: { ...payload } });
   }
 
-  async findAll(size: number, page: number): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
+  async findAll(size: number, page: number, city: string): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
     const realPage = Math.max(page - 1, 0);
     const realSize = Math.max(size, 1);
-    const data = await this.model.findMany({ skip: realPage * realSize, take: realSize });
+    const data = await this.model.findMany({ skip: realPage * realSize, take: realSize, where: { city } });
     const totalCount = await this.model.count();
     const totalPages = Math.max(1, Math.ceil(totalCount / size));
     return { data, page, size: realSize, totalPages: totalPages };

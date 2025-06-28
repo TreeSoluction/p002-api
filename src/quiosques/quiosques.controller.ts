@@ -15,8 +15,9 @@ export class QuiosquesController {
   }
 
   @Get()
-  findAll(@Query("size", ParseIntPipe) size: number, @Query('page', ParseIntPipe) page: number) {
-    return this.quiosquesService.findAll(size, page);
+  findAll(@Query("size", ParseIntPipe) size: number, @Query('page', ParseIntPipe) page: number, @Query('cidade') cidade: string) {
+
+    return this.quiosquesService.findAll(size, page, cidade);
   }
 
   @Get(':id')
