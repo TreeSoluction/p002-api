@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards, ParseIntPipe, Query } from '@nestjs/common';
 import { FreteirosService } from './freteiros.service';
 import { CreateFreteiroDto } from './dto/create-freteiro.dto';
 import { UpdateFreteiroDto } from './dto/update-freteiro.dto';
@@ -15,8 +15,8 @@ export class FreteirosController {
   }
 
   @Get()
-  findAll() {
-    return this.freteirosService.findAll();
+  findAll(@Query("size", ParseIntPipe) size: number, @Query('page', ParseIntPipe) page: number, @Query('cidade') cidade: string) {
+    return this.freteirosService.findAll(size, page, cidade);
   }
 
   @Get(':id')
