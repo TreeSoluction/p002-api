@@ -9,4 +9,13 @@ export class CidadesService extends GenericPrismaService<CreateCidadeDto, Update
   constructor(prisma: PrismaService) {
     super(prisma, 'cidades');
   }
+
+  async findAllByUf(size: number, page: number, estado: string): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
+    const realPage = Math.max(page - 1, 0);
+    const realSize = Math.max(size, 1);
+    const data = await this.db.cidades.findMany({ skip: realPage * realSize, take: realSize, where: { estado: estado } });
+    const totalCount = await this.db.cidades.count();
+    const totalPages = Math.max(1, Math.ceil(totalCount / size));
+    return { data, page, size: realSize, totalPages: totalPages };
+  }
 }

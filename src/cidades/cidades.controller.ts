@@ -15,9 +15,8 @@ export class CidadesController {
   }
 
   @Get()
-  findAll(@Query("size", ParseIntPipe) size: number, @Query('page', ParseIntPipe) page: number, @Query('cidade') cidade: string) {
-
-    return this.cidadesService.findAll(size, page, cidade);
+  findAll(@Query("size", ParseIntPipe) size: number, @Query('page', ParseIntPipe) page: number, @Query('estado') estado: string) {
+    return this.cidadesService.findAll(size, page, estado);
   }
 
   @Get(':id')

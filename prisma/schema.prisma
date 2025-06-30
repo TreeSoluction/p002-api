@@ -83,6 +83,7 @@ model malharias {
 
 model cidades {
   id     Int     @id @default(autoincrement())
+  estado String  @default("SEM_ESTADO")
   nome   String
   imagem String?
 }
