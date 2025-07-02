@@ -10,6 +10,31 @@ export class CidadesService extends GenericPrismaService<CreateCidadeDto, Update
     super(prisma, 'cidades');
   }
 
+  async findAllWithAllFilters(
+    size?: number,
+    page?: number,
+    estado?: string,
+    nome?: string
+  ): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
+    const realPage = Math.max((page ?? 1) - 1, 0);
+    const realSize = Math.max(size ?? 10, 1);
+
+    const where: any = {};
+    if (estado) where.estado = estado;
+    if (nome) where.nome = { contains: nome, mode: 'insensitive' };
+
+    const data = await this.db.cidades.findMany({
+      skip: realPage * realSize,
+      take: realSize,
+      where,
+    });
+
+    const totalCount = await this.db.cidades.count({ where });
+    const totalPages = Math.max(1, Math.ceil(totalCount / realSize));
+
+    return { data, page: realPage + 1, size: realSize, totalPages };
+  }
+
   async findAllByUf(size: number, page: number, estado: string): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
     const realPage = Math.max(page - 1, 0);
     const realSize = Math.max(size, 1);

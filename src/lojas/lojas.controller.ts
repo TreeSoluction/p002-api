@@ -15,8 +15,12 @@ export class LojasController {
   }
 
   @Get()
-  findAll(@Query("size", ParseIntPipe) size: number, @Query('page', ParseIntPipe) page: number, @Query('cidade') cidade: string, @Query('categoria') categoria: string) {
-    return this.lojasService.findAllWithCategoryFilter(size, page, cidade, categoria);
+  findAll(
+    @Query('size') size?: number,
+    @Query('page') page?: number,
+    @Query('nome') nome?: string
+  ) {
+    return this.lojasService.findAllWithAllFilters(size, page, nome);
   }
 
   @Get(':id')

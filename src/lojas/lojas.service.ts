@@ -9,6 +9,30 @@ export class LojasService extends GenericPrismaService<CreateLojaDto, UpdateLoja
   constructor(prisma: PrismaService) {
     super(prisma, 'lojas');
   }
+
+  async findAllWithAllFilters(
+    size?: number,
+    page?: number,
+    nome?: string
+  ): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
+    const realPage = Math.max((page ?? 1) - 1, 0);
+    const realSize = Math.max(size ?? 10, 1);
+
+    const where: any = {};
+    if (nome) where.nome = { contains: nome, mode: 'insensitive' };
+
+    const data = await this.db.lojas.findMany({
+      skip: realPage * realSize,
+      take: realSize,
+      where,
+    });
+
+    const totalCount = await this.db.lojas.count({ where });
+    const totalPages = Math.max(1, Math.ceil(totalCount / realSize));
+
+    return { data, page: realPage + 1, size: realSize, totalPages };
+  }
+
   async findAllWithCategoryFilter(size: number, page: number, city: string, categoria: string): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
     const realPage = Math.max(page - 1, 0);
     const realSize = Math.max(size, 1);
