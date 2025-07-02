@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "calendario" ADD COLUMN     "cidade" TEXT NOT NULL DEFAULT 'SEM_TITULO',
+ADD COLUMN     "titulo" TEXT NOT NULL DEFAULT 'SEM_TITULO';

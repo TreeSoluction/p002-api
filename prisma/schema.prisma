@@ -108,6 +108,8 @@ model quiosques {
 
 model calendario {
   id     Int      @id @default(autoincrement())
+  titulo String   @default("SEM_TITULO")
+  cidade String   @default("SEM_TITULO")
   imagem String?
   data   DateTime
 }
