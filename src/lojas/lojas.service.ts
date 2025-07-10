@@ -13,6 +13,8 @@ export class LojasService extends GenericPrismaService<CreateLojaDto, UpdateLoja
   async findAllWithAllFilters(
     size?: number,
     page?: number,
+    cidade?: string,
+    categoria?: string,
     nome?: string
   ): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
     const realPage = Math.max((page ?? 1) - 1, 0);
@@ -20,6 +22,8 @@ export class LojasService extends GenericPrismaService<CreateLojaDto, UpdateLoja
 
     const where: any = {};
     if (nome) where.nome = { contains: nome, mode: 'insensitive' };
+    if (cidade) where.cidade = { contains: cidade, mode: 'insensitive' };
+    if (categoria) where.categoria = { contains: categoria, mode: 'insensitive' };
 
     const data = await this.db.lojas.findMany({
       skip: realPage * realSize,

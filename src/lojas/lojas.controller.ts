@@ -18,6 +18,8 @@ export class LojasController {
   findAll(
     @Query('size') size?: number,
     @Query('page') page?: number,
+    @Query('cidade') cidade?: string,
+    @Query('categoria') categoria?: string,
     @Query('nome') nome?: string
   ) {
     return this.lojasService.findAllWithAllFilters(size, page, nome);
