@@ -12,6 +12,7 @@ import { LojasModule } from './lojas/lojas.module';
 import { CidadesModule } from './cidades/cidades.module';
 import { CalendarioModule } from './calendario/calendario.module';
 import { UserModule } from './user/user.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [ServicesModule, ExcursoesModule, HospedagensModule, RestaurantesModule, QuiosquesModule, EstacionamentosModule, MalhariasModule, TransportadorasModule, FreteirosModule, LojasModule, CidadesModule, CalendarioModule, UserModule],

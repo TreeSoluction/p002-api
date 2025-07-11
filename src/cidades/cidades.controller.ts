@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Param, Delete, Query, ParseIntPipe, Put, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Query, ParseIntPipe, Put, UseGuards, UseInterceptors } from '@nestjs/common';
 import { CidadesService } from './cidades.service';
 import { CreateCidadeDto } from './dto/create-cidade.dto';
 import { UpdateCidadeDto } from './dto/update-cidade.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 
 @Controller('cidades')
 export class CidadesController {
@@ -14,6 +15,8 @@ export class CidadesController {
     return this.cidadesService.create(createCidadeDto);
   }
 
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(60000)
   @Get()
   findAll(
     @Query('size') size?: number,
