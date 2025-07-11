@@ -95,6 +95,9 @@ model lojas {
   imagem    String?
   produtos  String[]
   categoria String
+  local     String   @default("SEM_LOCAL")
+  whatsapp  String   @default("SEM_WHATSAPP")
+  instagram String   @default("SEM_INSTAGRAM")
 }
 
 model quiosques {
