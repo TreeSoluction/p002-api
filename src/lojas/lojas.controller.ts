@@ -22,7 +22,7 @@ export class LojasController {
     @Query('categoria') categoria?: string,
     @Query('nome') nome?: string
   ) {
-    return this.lojasService.findAllWithAllFilters(size, page, nome);
+    return this.lojasService.findAllWithAllFilters(size, page, cidade, categoria, nome);
   }
 
   @Get(':id')
