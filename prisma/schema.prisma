@@ -8,6 +8,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model carrosel {
+  id     Int    @id @default(autoincrement())
+  imagem String
+}
+
 model services {
   id            Int      @id @default(autoincrement())
   category      String

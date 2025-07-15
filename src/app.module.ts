@@ -13,9 +13,10 @@ import { CidadesModule } from './cidades/cidades.module';
 import { CalendarioModule } from './calendario/calendario.module';
 import { UserModule } from './user/user.module';
 import { CacheModule } from '@nestjs/cache-manager';
+import { CarrosselModule } from './carrosel/carrosel.module';
 
 @Module({
-  imports: [ServicesModule, ExcursoesModule, HospedagensModule, RestaurantesModule, QuiosquesModule, EstacionamentosModule, MalhariasModule, TransportadorasModule, FreteirosModule, LojasModule, CidadesModule, CalendarioModule, UserModule],
+  imports: [ServicesModule, ExcursoesModule, HospedagensModule, RestaurantesModule, QuiosquesModule, EstacionamentosModule, MalhariasModule, TransportadorasModule, FreteirosModule, LojasModule, CidadesModule, CalendarioModule, UserModule, CarrosselModule],
   controllers: [],
   exports: [],
   providers: [],
