@@ -39,6 +39,9 @@ model transportadoras {
   email         String?
   imagem        String?
   phone_numbers String[]
+  produtos      String[]
+  whatsapp      String   @default("SEM_WHATSAPP")
+  instagram     String   @default("SEM_INSTAGRAM")
 }
 
 model freteiros {
@@ -57,6 +60,9 @@ model hospedagens {
   cidade        String
   imagem        String?
   phone_numbers String[]
+  produtos      String[]
+  whatsapp      String   @default("SEM_WHATSAPP")
+  instagram     String   @default("SEM_INSTAGRAM")
 }
 
 model restaurantes {
@@ -66,6 +72,9 @@ model restaurantes {
   cidade        String
   local         String
   phone_numbers String[]
+  produtos      String[]
+  whatsapp      String   @default("SEM_WHATSAPP")
+  instagram     String   @default("SEM_INSTAGRAM")
 }
 
 model estacionamentos {
@@ -84,6 +93,9 @@ model malharias {
   imagem        String?
   local         String
   phone_numbers String[]
+  produtos      String[]
+  whatsapp      String   @default("SEM_WHATSAPP")
+  instagram     String   @default("SEM_INSTAGRAM")
 }
 
 model cidades {
@@ -112,6 +124,9 @@ model quiosques {
   imagem        String?
   local         String
   phone_numbers String[]
+  produtos      String[]
+  whatsapp      String   @default("SEM_WHATSAPP")
+  instagram     String   @default("SEM_INSTAGRAM")
 }
 
 model calendario {
