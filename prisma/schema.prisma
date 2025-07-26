@@ -99,10 +99,11 @@ model malharias {
 }
 
 model cidades {
-  id     Int     @id @default(autoincrement())
-  estado String  @default("SEM_ESTADO")
-  nome   String
-  imagem String?
+  id         Int      @id @default(autoincrement())
+  estado     String   @default("SEM_ESTADO")
+  nome       String
+  categorias String[]
+  imagem     String?
 }
 
 model lojas {
@@ -141,4 +142,10 @@ model usuarios {
   id    Int    @id @default(autoincrement())
   email String @unique
   senha String
+}
+
+model categoria {
+  id     Int     @id @default(autoincrement())
+  nome   String
+  imagem String?
 }

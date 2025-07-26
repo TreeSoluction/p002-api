@@ -10,6 +10,17 @@ export class CidadesService extends GenericPrismaService<CreateCidadeDto, Update
     super(prisma, 'cidades');
   }
 
+  async findOne(id: number): Promise<any> {
+    const result = await this.db.cidades.findUnique({ where: { id } });
+    const categorias = Array<CategoriaResponse>();
+    for (const categoria of result?.categorias ?? []) {
+      const categoriaSearch = await this.db.categoria.findFirstOrThrow({ where: { nome: categoria } });
+      categorias.push({ nome: categoria, imagem: categoriaSearch.imagem || undefined });
+    }
+    const response = { id: result?.id, nome: result?.nome, estado: result?.estado, categorias: categorias, imagem: result?.imagem };
+    return response;
+  }
+
   async findAllWithAllFilters(
     size?: number,
     page?: number,
