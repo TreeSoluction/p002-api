@@ -26,7 +26,7 @@ export class CidadesController {
   }
 
   @UseInterceptors(CacheInterceptor)
-  @CacheTTL(60000)
+  @CacheTTL(600000)
   @Get()
   findAll(
     @Query('size') size?: number,

@@ -1,4 +1,10 @@
-import { Controller, Get, Post, Body, Param, Delete, Query, ParseIntPipe, Put, UseGuards } from '@nestjs/common';
+import {
+  Controller, Get, Post, Body, Param, Delete, Query, Put,
+  UseGuards, UseInterceptors, Inject
+} from '@nestjs/common';
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import type { Cache } from 'cache-manager';
 import { LojasService } from './lojas.service';
 import { CreateLojaDto } from './dto/create-loja.dto';
 import { UpdateLojaDto } from './dto/update-loja.dto';
@@ -6,14 +12,21 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('lojas')
 export class LojasController {
-  constructor(private readonly lojasService: LojasService) { }
+  constructor(
+    private readonly lojasService: LojasService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+  ) { }
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createLojaDto: CreateLojaDto) {
-    return this.lojasService.create(createLojaDto);
+  async create(@Body() createLojaDto: CreateLojaDto) {
+    const result = await this.lojasService.create(createLojaDto);
+    await this.cacheManager.clear();
+    return result;
   }
 
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(600000)
   @Get()
   findAll(
     @Query('size') size?: number,
@@ -25,6 +38,8 @@ export class LojasController {
     return this.lojasService.findAllWithAllFilters(size, page, cidade, categoria, nome);
   }
 
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(600000)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.lojasService.findOne(+id);
@@ -32,13 +47,17 @@ export class LojasController {
 
   @UseGuards(JwtAuthGuard)
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateLojaDto: UpdateLojaDto) {
-    return this.lojasService.update(+id, updateLojaDto);
+  async update(@Param('id') id: string, @Body() updateLojaDto: UpdateLojaDto) {
+    const result = await this.lojasService.update(+id, updateLojaDto);
+    await this.cacheManager.clear();
+    return result;
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.lojasService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const result = await this.lojasService.remove(+id);
+    await this.cacheManager.clear();
+    return result;
   }
 }

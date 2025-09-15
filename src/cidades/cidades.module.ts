@@ -7,7 +7,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
-  imports: [UserModule, CacheModule.register(),],
+  imports: [UserModule, CacheModule.register()],
   controllers: [CidadesController],
   providers: [CidadesService, PrismaService, JwtAuthGuard],
 })
