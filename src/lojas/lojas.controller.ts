@@ -14,19 +14,16 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 export class LojasController {
   constructor(
     private readonly lojasService: LojasService,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) { }
 
   @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() createLojaDto: CreateLojaDto) {
     const result = await this.lojasService.create(createLojaDto);
-    await this.cacheManager.clear();
     return result;
   }
 
   @UseInterceptors(CacheInterceptor)
-  @CacheTTL(600000)
   @Get()
   findAll(
     @Query('size') size?: number,
@@ -39,7 +36,6 @@ export class LojasController {
   }
 
   @UseInterceptors(CacheInterceptor)
-  @CacheTTL(600000)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.lojasService.findOne(+id);
@@ -49,7 +45,6 @@ export class LojasController {
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateLojaDto: UpdateLojaDto) {
     const result = await this.lojasService.update(+id, updateLojaDto);
-    await this.cacheManager.clear();
     return result;
   }
 
@@ -57,7 +52,6 @@ export class LojasController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     const result = await this.lojasService.remove(+id);
-    await this.cacheManager.clear();
     return result;
   }
 }
