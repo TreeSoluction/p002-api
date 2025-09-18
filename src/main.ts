@@ -5,7 +5,9 @@ import * as express from 'express';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.enableCors();
+  app.enableCors({
+    origin: '*',
+  });
 
   app.use(express.json({ limit: Number.MAX_SAFE_INTEGER } as any));
   app.use(express.urlencoded({ limit: Number.MAX_SAFE_INTEGER as any, extended: true } as any));
