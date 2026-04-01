@@ -1,6 +1,16 @@
 import {
-  Controller, Get, Post, Body, Param, Delete, Put, Query, ParseIntPipe,
-  UseGuards, UseInterceptors, Inject
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+  Query,
+  ParseIntPipe,
+  UseGuards,
+  UseInterceptors,
+  Inject,
 } from '@nestjs/common';
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
@@ -15,7 +25,7 @@ export class FreteirosController {
   constructor(
     private readonly freteirosService: FreteirosService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) { }
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
@@ -31,7 +41,7 @@ export class FreteirosController {
   findAll(
     @Query('size', ParseIntPipe) size: number,
     @Query('page', ParseIntPipe) page: number,
-    @Query('cidade') cidade: string
+    @Query('cidade') cidade: string,
   ) {
     return this.freteirosService.findAll(size, page, cidade);
   }
@@ -45,7 +55,10 @@ export class FreteirosController {
 
   @UseGuards(JwtAuthGuard)
   @Put(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateFreteiroDto: UpdateFreteiroDto) {
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateFreteiroDto: UpdateFreteiroDto,
+  ) {
     const result = await this.freteirosService.update(id, updateFreteiroDto);
     await this.cacheManager.clear();
     return result;

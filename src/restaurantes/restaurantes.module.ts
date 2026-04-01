@@ -11,4 +11,4 @@ import { CacheModule } from '@nestjs/cache-manager';
   controllers: [RestaurantesController],
   providers: [RestaurantesService, PrismaService, JwtAuthGuard],
 })
-export class RestaurantesModule { }
+export class RestaurantesModule {}

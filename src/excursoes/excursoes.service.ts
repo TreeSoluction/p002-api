@@ -5,7 +5,10 @@ import { CreateExcursoesDto } from './dto/create-excursoe.dto';
 import { UpdateExcursoeDto } from './dto/update-excursoe.dto';
 
 @Injectable()
-export class ExcursoesService extends GenericPrismaService<CreateExcursoesDto, UpdateExcursoeDto> {
+export class ExcursoesService extends GenericPrismaService<
+  CreateExcursoesDto,
+  UpdateExcursoeDto
+> {
   constructor(prisma: PrismaService) {
     super(prisma, 'excursoes');
   }
@@ -13,7 +16,7 @@ export class ExcursoesService extends GenericPrismaService<CreateExcursoesDto, U
   async findAllWithUf(
     size: number,
     page: number,
-    uf?: string
+    uf?: string,
   ): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
     const realPage = Math.max(page - 1, 0);
     const realSize = Math.max(size, 1);

@@ -1,6 +1,15 @@
 import {
-  Controller, Get, Post, Body, Param, Delete, Query, Put,
-  UseGuards, UseInterceptors, Inject
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+  Put,
+  UseGuards,
+  UseInterceptors,
+  Inject,
 } from '@nestjs/common';
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
@@ -15,7 +24,7 @@ export class LojasController {
   constructor(
     private readonly lojasService: LojasService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) { }
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
@@ -33,9 +42,15 @@ export class LojasController {
     @Query('page') page?: number,
     @Query('cidade') cidade?: string,
     @Query('categoria') categoria?: string,
-    @Query('nome') nome?: string
+    @Query('nome') nome?: string,
   ) {
-    return this.lojasService.findAllWithAllFilters(size, page, cidade, categoria, nome);
+    return this.lojasService.findAllWithAllFilters(
+      size,
+      page,
+      cidade,
+      categoria,
+      nome,
+    );
   }
 
   @UseInterceptors(CacheInterceptor)

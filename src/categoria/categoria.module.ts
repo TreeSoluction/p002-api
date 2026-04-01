@@ -7,4 +7,4 @@ import { PrismaService } from 'src/prisma/prisma.service';
   controllers: [CategoriaController],
   providers: [CategoriaService, PrismaService],
 })
-export class CategoriaModule { }
+export class CategoriaModule {}

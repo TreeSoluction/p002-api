@@ -11,4 +11,4 @@ import { CacheModule } from '@nestjs/cache-manager';
   controllers: [HospedagensController],
   providers: [HospedagensService, PrismaService, JwtAuthGuard],
 })
-export class HospedagensModule { }
+export class HospedagensModule {}

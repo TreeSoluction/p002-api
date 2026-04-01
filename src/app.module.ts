@@ -12,14 +12,33 @@ import { LojasModule } from './lojas/lojas.module';
 import { CidadesModule } from './cidades/cidades.module';
 import { CalendarioModule } from './calendario/calendario.module';
 import { UserModule } from './user/user.module';
-import { CacheModule } from '@nestjs/cache-manager';
 import { CarrosselModule } from './carrosel/carrosel.module';
 import { CategoriaModule } from './categoria/categoria.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [ServicesModule, ExcursoesModule, HospedagensModule, RestaurantesModule, QuiosquesModule, EstacionamentosModule, MalhariasModule, TransportadorasModule, FreteirosModule, LojasModule, CidadesModule, CalendarioModule, UserModule, CarrosselModule, CategoriaModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    ServicesModule,
+    ExcursoesModule,
+    HospedagensModule,
+    RestaurantesModule,
+    QuiosquesModule,
+    EstacionamentosModule,
+    MalhariasModule,
+    TransportadorasModule,
+    FreteirosModule,
+    LojasModule,
+    CidadesModule,
+    CalendarioModule,
+    UserModule,
+    CarrosselModule,
+    CategoriaModule,
+  ],
   controllers: [],
   exports: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

@@ -11,4 +11,4 @@ import { CacheModule } from '@nestjs/cache-manager';
   controllers: [QuiosquesController],
   providers: [QuiosquesService, PrismaService, JwtAuthGuard],
 })
-export class QuiosquesModule { }
+export class QuiosquesModule {}

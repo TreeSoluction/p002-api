@@ -11,4 +11,4 @@ import { CacheModule } from '@nestjs/cache-manager';
   controllers: [ExcursoesController],
   providers: [ExcursoesService, PrismaService, JwtAuthGuard],
 })
-export class ExcursoesModule { }
+export class ExcursoesModule {}

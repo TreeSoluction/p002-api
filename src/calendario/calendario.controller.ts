@@ -1,6 +1,16 @@
 import {
-  Controller, Get, Post, Body, Param, Delete, Query, ParseIntPipe, Put,
-  UseGuards, UseInterceptors, Inject
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+  ParseIntPipe,
+  Put,
+  UseGuards,
+  UseInterceptors,
+  Inject,
 } from '@nestjs/common';
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
@@ -15,7 +25,7 @@ export class CalendarioController {
   constructor(
     private readonly calendarioService: CalendarioService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) { }
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
@@ -31,7 +41,7 @@ export class CalendarioController {
   findAll(
     @Query('size', ParseIntPipe) size: number,
     @Query('page', ParseIntPipe) page: number,
-    @Query('cidade') cidade: string
+    @Query('cidade') cidade: string,
   ) {
     return this.calendarioService.findAll(size, page, cidade);
   }
@@ -45,7 +55,10 @@ export class CalendarioController {
 
   @UseGuards(JwtAuthGuard)
   @Put(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateCalendarioDto: UpdateCalendarioDto) {
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateCalendarioDto: UpdateCalendarioDto,
+  ) {
     const result = await this.calendarioService.update(id, updateCalendarioDto);
     await this.cacheManager.clear();
     return result;

@@ -1,6 +1,16 @@
 import {
-  Controller, Get, Post, Body, Param, Delete, Query, ParseIntPipe, Put,
-  UseGuards, UseInterceptors, Inject
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+  ParseIntPipe,
+  Put,
+  UseGuards,
+  UseInterceptors,
+  Inject,
 } from '@nestjs/common';
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
@@ -15,7 +25,7 @@ export class ExcursoesController {
   constructor(
     private readonly excursoesService: ExcursoesService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) { }
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
@@ -31,7 +41,7 @@ export class ExcursoesController {
   findAll(
     @Query('size', ParseIntPipe) size: number,
     @Query('page', ParseIntPipe) page: number,
-    @Query('uf') uf?: string
+    @Query('uf') uf?: string,
   ) {
     return this.excursoesService.findAllWithUf(size, page, uf);
   }
@@ -45,7 +55,10 @@ export class ExcursoesController {
 
   @UseGuards(JwtAuthGuard)
   @Put(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateExcursoeDto: UpdateExcursoeDto) {
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateExcursoeDto: UpdateExcursoeDto,
+  ) {
     const result = await this.excursoesService.update(id, updateExcursoeDto);
     await this.cacheManager.clear();
     return result;

@@ -7,8 +7,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class GenericPrismaService<TCreateDto, TUpdateDto> {
   constructor(
     protected db: PrismaService,
-    protected modelName: string
-  ) { }
+    protected modelName: string,
+  ) {}
 
   private get model() {
     return (this.db as any)[this.modelName];
@@ -18,13 +18,22 @@ export class GenericPrismaService<TCreateDto, TUpdateDto> {
     return await this.model.create({ data: { ...payload } });
   }
 
-  async findAll(size?: number, page?: number, city?: string): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
+  async findAll(
+    size?: number,
+    page?: number,
+    city?: string,
+  ): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
     if (size === undefined) size = 10;
     if (page === undefined) page = 1;
     const realPage = Math.max(page - 1, 0);
     const realSize = Math.max(size, 1);
-    const whereCondition = city == undefined ? {} : { cidade: { equals: city } };
-    const data = await this.model.findMany({ skip: realPage * realSize, take: realSize, where: whereCondition });
+    const whereCondition =
+      city == undefined ? {} : { cidade: { equals: city } };
+    const data = await this.model.findMany({
+      skip: realPage * realSize,
+      take: realSize,
+      where: whereCondition,
+    });
     const totalCount = await this.model.count();
     const totalPages = Math.max(1, Math.ceil(totalCount / size));
     return { data, page, size: realSize, totalPages: totalPages };

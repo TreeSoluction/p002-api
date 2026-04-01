@@ -4,7 +4,10 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCategoriaDto } from './dto/create-categoria-dto';
 
 @Injectable()
-export class CategoriaService extends GenericPrismaService<CreateCategoriaDto, CreateCategoriaDto> {
+export class CategoriaService extends GenericPrismaService<
+  CreateCategoriaDto,
+  CreateCategoriaDto
+> {
   constructor(prisma: PrismaService) {
     super(prisma, 'categoria');
   }
@@ -41,8 +44,8 @@ export class CategoriaService extends GenericPrismaService<CreateCategoriaDto, C
       }
 
       for (const city of citiesWithCategory) {
-        const updatedCategorias = city.categorias.map(cat =>
-          cat === categoria.nome ? updateDto.nome : cat
+        const updatedCategorias = city.categorias.map((cat) =>
+          cat === categoria.nome ? updateDto.nome : cat,
         );
 
         await prisma.cidades.update({

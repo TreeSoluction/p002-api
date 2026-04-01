@@ -5,7 +5,10 @@ import { CreateMalhariaDto } from './dto/create-malharia.dto';
 import { UpdateMalhariaDto } from './dto/update-malharia.dto';
 
 @Injectable()
-export class MalhariasService extends GenericPrismaService<CreateMalhariaDto, UpdateMalhariaDto> {
+export class MalhariasService extends GenericPrismaService<
+  CreateMalhariaDto,
+  UpdateMalhariaDto
+> {
   constructor(prisma: PrismaService) {
     super(prisma, 'malharias');
   }

@@ -1,6 +1,16 @@
 import {
-  Controller, Get, Post, Body, Param, Delete, Query, ParseIntPipe, Put,
-  UseGuards, UseInterceptors, Inject
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+  ParseIntPipe,
+  Put,
+  UseGuards,
+  UseInterceptors,
+  Inject,
 } from '@nestjs/common';
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
@@ -15,12 +25,14 @@ export class EstacionamentosController {
   constructor(
     private readonly estacionamentosService: EstacionamentosService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) { }
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() createEstacionamentoDto: CreateEstacionamentoDto) {
-    const result = await this.estacionamentosService.create(createEstacionamentoDto);
+    const result = await this.estacionamentosService.create(
+      createEstacionamentoDto,
+    );
     await this.cacheManager.clear();
     return result;
   }
@@ -31,7 +43,7 @@ export class EstacionamentosController {
   findAll(
     @Query('size', ParseIntPipe) size: number,
     @Query('page', ParseIntPipe) page: number,
-    @Query('cidade') cidade: string
+    @Query('cidade') cidade: string,
   ) {
     return this.estacionamentosService.findAll(size, page, cidade);
   }
@@ -45,8 +57,14 @@ export class EstacionamentosController {
 
   @UseGuards(JwtAuthGuard)
   @Put(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateEstacionamentoDto: UpdateEstacionamentoDto) {
-    const result = await this.estacionamentosService.update(id, updateEstacionamentoDto);
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateEstacionamentoDto: UpdateEstacionamentoDto,
+  ) {
+    const result = await this.estacionamentosService.update(
+      id,
+      updateEstacionamentoDto,
+    );
     await this.cacheManager.clear();
     return result;
   }

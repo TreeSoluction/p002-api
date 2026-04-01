@@ -16,7 +16,7 @@ export class UserService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
-  ) { }
+  ) {}
 
   async create(dto: CreateUserDto) {
     const salt = await bcrypt.genSalt();

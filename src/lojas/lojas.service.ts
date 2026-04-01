@@ -5,7 +5,10 @@ import { CreateLojaDto } from './dto/create-loja.dto';
 import { UpdateLojaDto } from './dto/update-loja.dto';
 
 @Injectable()
-export class LojasService extends GenericPrismaService<CreateLojaDto, UpdateLojaDto> {
+export class LojasService extends GenericPrismaService<
+  CreateLojaDto,
+  UpdateLojaDto
+> {
   constructor(prisma: PrismaService) {
     super(prisma, 'lojas');
   }
@@ -15,7 +18,7 @@ export class LojasService extends GenericPrismaService<CreateLojaDto, UpdateLoja
     page?: number,
     cidade?: string,
     categoria?: string,
-    nome?: string
+    nome?: string,
   ): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
     const realPage = Math.max((page ?? 1) - 1, 0);
     const realSize = Math.max(size ?? 10, 1);
@@ -23,7 +26,8 @@ export class LojasService extends GenericPrismaService<CreateLojaDto, UpdateLoja
     const where: any = {};
     if (nome) where.nome = { contains: nome, mode: 'insensitive' };
     if (cidade) where.cidade = { contains: cidade, mode: 'insensitive' };
-    if (categoria) where.categoria = { contains: categoria, mode: 'insensitive' };
+    if (categoria)
+      where.categoria = { contains: categoria, mode: 'insensitive' };
 
     const data = await this.db.lojas.findMany({
       skip: realPage * realSize,
@@ -37,10 +41,19 @@ export class LojasService extends GenericPrismaService<CreateLojaDto, UpdateLoja
     return { data, page: realPage + 1, size: realSize, totalPages };
   }
 
-  async findAllWithCategoryFilter(size: number, page: number, city: string, categoria: string): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
+  async findAllWithCategoryFilter(
+    size: number,
+    page: number,
+    city: string,
+    categoria: string,
+  ): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
     const realPage = Math.max(page - 1, 0);
     const realSize = Math.max(size, 1);
-    const data = await this.db.lojas.findMany({ skip: realPage * realSize, take: realSize, where: { cidade: city, categoria: categoria } });
+    const data = await this.db.lojas.findMany({
+      skip: realPage * realSize,
+      take: realSize,
+      where: { cidade: city, categoria: categoria },
+    });
     const totalCount = await this.db.lojas.count();
     const totalPages = Math.max(1, Math.ceil(totalCount / size));
     return { data, page, size: realSize, totalPages: totalPages };

@@ -8,12 +8,22 @@ async function bootstrap() {
   app.enableCors({
     origin: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'Accept',
+      'X-Requested-With',
+    ],
     credentials: true,
   });
 
   app.use(express.json({ limit: Number.MAX_SAFE_INTEGER } as any));
-  app.use(express.urlencoded({ limit: Number.MAX_SAFE_INTEGER as any, extended: true } as any));
+  app.use(
+    express.urlencoded({
+      limit: Number.MAX_SAFE_INTEGER as any,
+      extended: true,
+    } as any),
+  );
 
   await app.listen(process.env.PORT || 4000);
 }

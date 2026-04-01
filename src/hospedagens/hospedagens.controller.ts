@@ -1,6 +1,16 @@
 import {
-  Controller, Get, Post, Body, Param, Delete, Query, ParseIntPipe, Put,
-  UseGuards, UseInterceptors, Inject
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+  ParseIntPipe,
+  Put,
+  UseGuards,
+  UseInterceptors,
+  Inject,
 } from '@nestjs/common';
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
@@ -15,7 +25,7 @@ export class HospedagensController {
   constructor(
     private readonly hospedagensService: HospedagensService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) { }
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
@@ -31,7 +41,7 @@ export class HospedagensController {
   findAll(
     @Query('size', ParseIntPipe) size: number,
     @Query('page', ParseIntPipe) page: number,
-    @Query('cidade') cidade: string
+    @Query('cidade') cidade: string,
   ) {
     return this.hospedagensService.findAll(size, page, cidade);
   }
@@ -45,8 +55,14 @@ export class HospedagensController {
 
   @UseGuards(JwtAuthGuard)
   @Put(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateHospedagenDto: UpdateHospedagenDto) {
-    const result = await this.hospedagensService.update(id, updateHospedagenDto);
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateHospedagenDto: UpdateHospedagenDto,
+  ) {
+    const result = await this.hospedagensService.update(
+      id,
+      updateHospedagenDto,
+    );
     await this.cacheManager.clear();
     return result;
   }

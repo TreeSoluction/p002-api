@@ -11,4 +11,4 @@ import { CacheModule } from '@nestjs/cache-manager';
   controllers: [EstacionamentosController],
   providers: [EstacionamentosService, PrismaService, JwtAuthGuard],
 })
-export class EstacionamentosModule { }
+export class EstacionamentosModule {}

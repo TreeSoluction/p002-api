@@ -1,6 +1,16 @@
 import {
-  Controller, Get, Post, Body, Param, Delete, Query, ParseIntPipe, Put,
-  UseGuards, UseInterceptors, Inject
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+  ParseIntPipe,
+  Put,
+  UseGuards,
+  UseInterceptors,
+  Inject,
 } from '@nestjs/common';
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
@@ -15,12 +25,14 @@ export class TransportadorasController {
   constructor(
     private readonly transportadorasService: TransportadorasService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) { }
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() createTransportadoraDto: CreateTransportadoraDto) {
-    const result = await this.transportadorasService.create(createTransportadoraDto);
+    const result = await this.transportadorasService.create(
+      createTransportadoraDto,
+    );
     await this.cacheManager.clear();
     return result;
   }
@@ -31,7 +43,7 @@ export class TransportadorasController {
   findAll(
     @Query('size', ParseIntPipe) size: number,
     @Query('page', ParseIntPipe) page: number,
-    @Query('cidade') cidade: string
+    @Query('cidade') cidade: string,
   ) {
     return this.transportadorasService.findAll(size, page, cidade);
   }
@@ -45,8 +57,14 @@ export class TransportadorasController {
 
   @UseGuards(JwtAuthGuard)
   @Put(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateTransportadoraDto: UpdateTransportadoraDto) {
-    const result = await this.transportadorasService.update(id, updateTransportadoraDto);
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateTransportadoraDto: UpdateTransportadoraDto,
+  ) {
+    const result = await this.transportadorasService.update(
+      id,
+      updateTransportadoraDto,
+    );
     await this.cacheManager.clear();
     return result;
   }

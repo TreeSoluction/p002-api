@@ -11,4 +11,4 @@ import { CacheModule } from '@nestjs/cache-manager';
   controllers: [CarroselController],
   providers: [CarroselService, PrismaService, JwtAuthGuard],
 })
-export class CarrosselModule { }
+export class CarrosselModule {}

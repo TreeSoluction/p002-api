@@ -5,7 +5,10 @@ import { CreateCalendarioDto } from './dto/create-calendario.dto';
 import { UpdateCalendarioDto } from './dto/update-calendario.dto';
 
 @Injectable()
-export class CalendarioService extends GenericPrismaService<CreateCalendarioDto, UpdateCalendarioDto> {
+export class CalendarioService extends GenericPrismaService<
+  CreateCalendarioDto,
+  UpdateCalendarioDto
+> {
   constructor(prisma: PrismaService) {
     super(prisma, 'calendario');
   }

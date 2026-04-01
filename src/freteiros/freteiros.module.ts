@@ -11,4 +11,4 @@ import { CacheModule } from '@nestjs/cache-manager';
   controllers: [FreteirosController],
   providers: [FreteirosService, PrismaService, JwtAuthGuard],
 })
-export class FreteirosModule { }
+export class FreteirosModule {}

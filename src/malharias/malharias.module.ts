@@ -11,4 +11,4 @@ import { CacheModule } from '@nestjs/cache-manager';
   controllers: [MalhariasController],
   providers: [MalhariasService, PrismaService, JwtAuthGuard],
 })
-export class MalhariasModule { }
+export class MalhariasModule {}

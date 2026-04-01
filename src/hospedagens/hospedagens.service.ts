@@ -5,7 +5,10 @@ import { CreateHospedagenDto } from './dto/create-hospedagen.dto';
 import { UpdateHospedagenDto } from './dto/update-hospedagen.dto';
 
 @Injectable()
-export class HospedagensService extends GenericPrismaService<CreateHospedagenDto, UpdateHospedagenDto> {
+export class HospedagensService extends GenericPrismaService<
+  CreateHospedagenDto,
+  UpdateHospedagenDto
+> {
   constructor(prisma: PrismaService) {
     super(prisma, 'hospedagens');
   }

@@ -10,4 +10,4 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
   controllers: [ServicesController],
   providers: [ServicesService, PrismaService, JwtAuthGuard],
 })
-export class ServicesModule { }
+export class ServicesModule {}

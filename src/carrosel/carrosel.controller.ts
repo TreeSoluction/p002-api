@@ -1,6 +1,16 @@
 import {
-  Controller, Get, Post, Body, Param, Delete, Query, ParseIntPipe, Put,
-  UseGuards, UseInterceptors, Inject
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+  ParseIntPipe,
+  Put,
+  UseGuards,
+  UseInterceptors,
+  Inject,
 } from '@nestjs/common';
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
@@ -15,7 +25,7 @@ export class CarroselController {
   constructor(
     private readonly carroselService: CarroselService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) { }
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
@@ -31,7 +41,7 @@ export class CarroselController {
   findAll(
     @Query('size', ParseIntPipe) size: number,
     @Query('page', ParseIntPipe) page: number,
-    @Query('cidade') cidade: string
+    @Query('cidade') cidade: string,
   ) {
     return this.carroselService.findAll(size, page, cidade);
   }
@@ -45,8 +55,14 @@ export class CarroselController {
 
   @UseGuards(JwtAuthGuard)
   @Put(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateEstacionamentoDto: UpdateEstacionamentoDto) {
-    const result = await this.carroselService.update(id, updateEstacionamentoDto);
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateEstacionamentoDto: UpdateEstacionamentoDto,
+  ) {
+    const result = await this.carroselService.update(
+      id,
+      updateEstacionamentoDto,
+    );
     await this.cacheManager.clear();
     return result;
   }

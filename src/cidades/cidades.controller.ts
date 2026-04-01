@@ -1,6 +1,15 @@
 import {
-  Controller, Get, Post, Body, Param, Delete, Query, Put,
-  UseGuards, UseInterceptors, Inject
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+  Put,
+  UseGuards,
+  UseInterceptors,
+  Inject,
 } from '@nestjs/common';
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
@@ -15,7 +24,7 @@ export class CidadesController {
   constructor(
     private readonly cidadesService: CidadesService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) { }
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
@@ -44,7 +53,10 @@ export class CidadesController {
 
   @UseGuards(JwtAuthGuard)
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateCidadeDto: UpdateCidadeDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateCidadeDto: UpdateCidadeDto,
+  ) {
     const result = await this.cidadesService.update(+id, updateCidadeDto);
     await this.cacheManager.clear();
     return result;

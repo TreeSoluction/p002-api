@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, Query, UseGuards, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+  Query,
+  UseGuards,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { ServicesService } from './services.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
@@ -6,7 +17,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('services')
 export class ServicesController {
-  constructor(private readonly servicesService: ServicesService) { }
+  constructor(private readonly servicesService: ServicesService) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
@@ -15,7 +26,11 @@ export class ServicesController {
   }
 
   @Get()
-  findAll(@Query("size", ParseIntPipe) size: number, @Query('page', ParseIntPipe) page: number, @Query('cidade') cidade: string) {
+  findAll(
+    @Query('size', ParseIntPipe) size: number,
+    @Query('page', ParseIntPipe) page: number,
+    @Query('cidade') cidade: string,
+  ) {
     return this.servicesService.findAll(size, page, cidade);
   }
 

@@ -5,7 +5,10 @@ import { CreateCidadeDto } from './dto/create-cidade.dto';
 import { UpdateCidadeDto } from './dto/update-cidade.dto';
 
 @Injectable()
-export class CidadesService extends GenericPrismaService<CreateCidadeDto, UpdateCidadeDto> {
+export class CidadesService extends GenericPrismaService<
+  CreateCidadeDto,
+  UpdateCidadeDto
+> {
   constructor(prisma: PrismaService) {
     super(prisma, 'cidades');
   }
@@ -14,10 +17,21 @@ export class CidadesService extends GenericPrismaService<CreateCidadeDto, Update
     const result = await this.db.cidades.findUnique({ where: { id } });
     const categorias = Array<CategoriaResponse>();
     for (const categoria of result?.categorias ?? []) {
-      const categoriaSearch = await this.db.categoria.findFirstOrThrow({ where: { nome: categoria } });
-      categorias.push({ nome: categoria, imagem: categoriaSearch.imagem || undefined });
+      const categoriaSearch = await this.db.categoria.findFirstOrThrow({
+        where: { nome: categoria },
+      });
+      categorias.push({
+        nome: categoria,
+        imagem: categoriaSearch.imagem || undefined,
+      });
     }
-    const response = { id: result?.id, nome: result?.nome, estado: result?.estado, categorias: categorias, imagem: result?.imagem };
+    const response = {
+      id: result?.id,
+      nome: result?.nome,
+      estado: result?.estado,
+      categorias: categorias,
+      imagem: result?.imagem,
+    };
     return response;
   }
 
@@ -25,7 +39,7 @@ export class CidadesService extends GenericPrismaService<CreateCidadeDto, Update
     size?: number,
     page?: number,
     estado?: string,
-    nome?: string
+    nome?: string,
   ): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
     const realPage = Math.max((page ?? 1) - 1, 0);
     const realSize = Math.max(size ?? 10, 1);
@@ -46,10 +60,18 @@ export class CidadesService extends GenericPrismaService<CreateCidadeDto, Update
     return { data, page: realPage + 1, size: realSize, totalPages };
   }
 
-  async findAllByUf(size: number, page: number, estado: string): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
+  async findAllByUf(
+    size: number,
+    page: number,
+    estado: string,
+  ): Promise<{ data: any[]; page: number; size: number; totalPages: number }> {
     const realPage = Math.max(page - 1, 0);
     const realSize = Math.max(size, 1);
-    const data = await this.db.cidades.findMany({ skip: realPage * realSize, take: realSize, where: { estado: estado } });
+    const data = await this.db.cidades.findMany({
+      skip: realPage * realSize,
+      take: realSize,
+      where: { estado: estado },
+    });
     const totalCount = await this.db.cidades.count();
     const totalPages = Math.max(1, Math.ceil(totalCount / size));
     return { data, page, size: realSize, totalPages: totalPages };

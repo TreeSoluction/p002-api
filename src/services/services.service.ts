@@ -5,7 +5,10 @@ import { UpdateServiceDto } from './dto/update-service.dto';
 import { GenericPrismaService } from 'src/prisma/genetic.prisma.service';
 
 @Injectable()
-export class ServicesService extends GenericPrismaService<CreateServiceDto, UpdateServiceDto> {
+export class ServicesService extends GenericPrismaService<
+  CreateServiceDto,
+  UpdateServiceDto
+> {
   constructor(prisma: PrismaService) {
     super(prisma, 'services');
   }

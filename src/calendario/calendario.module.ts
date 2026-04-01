@@ -8,15 +8,8 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
-  imports: [
-    UserModule,
-    CacheModule.register()
-  ],
-  providers: [
-    CalendarioService,
-    PrismaService,
-    JwtAuthGuard,
-  ],
+  imports: [UserModule, CacheModule.register()],
+  providers: [CalendarioService, PrismaService, JwtAuthGuard],
   controllers: [CalendarioController],
 })
-export class CalendarioModule { }
+export class CalendarioModule {}
